@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>TESTANDO</h1>
+    {% for dado in dados %}
+    <p>ID: {{dado.id}}</p>
+    <p>Nome: {{dado.nome}}</p>
+    {% endfor %}
+    <div class="w-50 h-50">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $.get('/home/get_data', function(data) {
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.x,
+                        datasets: [{
+                            label: 'Gráfico de Barras',
+                            data: data.y,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
