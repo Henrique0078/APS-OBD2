@@ -8,7 +8,6 @@
     <meta name="author" content="">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 </head>
 
@@ -16,7 +15,6 @@
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OBD II - Live data</a>
     </nav>
-
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -110,8 +108,8 @@
     <script>
         window.jQuery || document.write('<script src="bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')
     </script>
-    <script src="../../static/dependencies/Homebootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
-    <script src="../../static/dependencies/Homebootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='dependencies/bootstrap-4.0.0/assets/js/vendor/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dependencies/bootstrap-4.0.0/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
@@ -152,3 +150,4 @@
     </script>
 
 </body>
+</html>

@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Bootstrap core CSS -->
-    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="../../static/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
 </head>
 
 <body>
@@ -277,8 +275,8 @@
     <script>
         window.jQuery || document.write('<script src="bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')
     </script>
-    <script src="../../static/dependencies/Homebootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
-    <script src="../../static/dependencies/Homebootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='dependencies/bootstrap-4.0.0/assets/js/vendor/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dependencies/bootstrap-4.0.0/dist/js/bootstrap.min.js') }}"></script>
 
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>

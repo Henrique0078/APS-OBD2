@@ -1,8 +1,8 @@
-from flask import Flask
-from src.Home.home import home_blueprint
-from src.Dashboard.dashboard import dashboard_blueprint
-from src.ClassificantionIA.classificantionIA import classificantionIA_blueprint
-main = Flask(__name__)
+from flask import Flask, url_for
+from Home.home import home_blueprint
+from Dashboard.dashboard import dashboard_blueprint
+from ClassificantionIA.classificantionIA import classificantionIA_blueprint
+main = Flask(__name__, static_url_path='/static')
 
 main.register_blueprint(home_blueprint, url_prefix="/home")
 main.register_blueprint(dashboard_blueprint, url_prefix="/")
