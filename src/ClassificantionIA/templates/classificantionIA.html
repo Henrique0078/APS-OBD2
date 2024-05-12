@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../../static/css/base.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OBD II - Live data</a>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span data-feather="home"></span>
+                                Dashboard <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="file"></span>
+                                Classification IA in real time
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="database"></span>
+                                Data.csv
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <h6
+                        class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Information</span>
+                        <a class="d-flex align-items-center text-muted" href="#">
+                            <span data-feather="plus-circle"></span>
+                        </a>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="file-text"></span>
+                                -
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="file-text"></span>
+                                -
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="file-text"></span>
+                                -
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="file-text"></span>
+                                -
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Classification IA</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <button class="btn btn-sm btn-outline-secondary">Share</button>
+                            <button class="btn btn-sm btn-outline-secondary">Export</button>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <span data-feather="calendar"></span>
+                            This week
+                        </button>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Conteúdo do primeiro elemento -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas class="my-4" id="graph_ROC_curve" width="900" height="560"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Conteúdo do segundo elemento -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas class="my-4" id="graph_confusion_matrix" width="900" height="560"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <!-- Conteúdo do terceiro elemento --> 
+                            <div class="card">
+                                <div class="card-body">
+                                    <canvas class="my-4" id="graph_precision_recall" width="900" height="560"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Conteúdo do quarto elemento -->
+                            <div class="card">
+                                <div class="card-body"> 
+                                    <canvas class="my-4" id="myChart" width="900" height="560"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+
+                <h2>Live Data</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Header</th>
+                                <th>Header</th>
+                                <th>Header</th>
+                                <th>Header</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1,001</td>
+                                <td>Lorem</td>
+                                <td>ipsum</td>
+                                <td>dolor</td>
+                                <td>sit</td>
+                            </tr>
+                            <tr>
+                                <td>1,002</td>
+                                <td>amet</td>
+                                <td>consectetur</td>
+                                <td>adipiscing</td>
+                                <td>elit</td>
+                            </tr>
+                            <tr>
+                                <td>1,003</td>
+                                <td>Integer</td>
+                                <td>nec</td>
+                                <td>odio</td>
+                                <td>Praesent</td>
+                            </tr>
+                            <tr>
+                                <td>1,003</td>
+                                <td>libero</td>
+                                <td>Sed</td>
+                                <td>cursus</td>
+                                <td>ante</td>
+                            </tr>
+                            <tr>
+                                <td>1,004</td>
+                                <td>dapibus</td>
+                                <td>diam</td>
+                                <td>Sed</td>
+                                <td>nisi</td>
+                            </tr>
+                            <tr>
+                                <td>1,005</td>
+                                <td>Nulla</td>
+                                <td>quis</td>
+                                <td>sem</td>
+                                <td>at</td>
+                            </tr>
+                            <tr>
+                                <td>1,006</td>
+                                <td>nibh</td>
+                                <td>elementum</td>
+                                <td>imperdiet</td>
+                                <td>Duis</td>
+                            </tr>
+                            <tr>
+                                <td>1,007</td>
+                                <td>sagittis</td>
+                                <td>ipsum</td>
+                                <td>Praesent</td>
+                                <td>mauris</td>
+                            </tr>
+                            <tr>
+                                <td>1,008</td>
+                                <td>Fusce</td>
+                                <td>nec</td>
+                                <td>tellus</td>
+                                <td>sed</td>
+                            </tr>
+                            <tr>
+                                <td>1,009</td>
+                                <td>augue</td>
+                                <td>semper</td>
+                                <td>porta</td>
+                                <td>Mauris</td>
+                            </tr>
+                            <tr>
+                                <td>1,010</td>
+                                <td>massa</td>
+                                <td>Vestibulum</td>
+                                <td>lacinia</td>
+                                <td>arcu</td>
+                            </tr>
+                            <tr>
+                                <td>1,011</td>
+                                <td>eget</td>
+                                <td>nulla</td>
+                                <td>Class</td>
+                                <td>aptent</td>
+                            </tr>
+                            <tr>
+                                <td>1,012</td>
+                                <td>taciti</td>
+                                <td>sociosqu</td>
+                                <td>ad</td>
+                                <td>litora</td>
+                            </tr>
+                            <tr>
+                                <td>1,013</td>
+                                <td>torquent</td>
+                                <td>per</td>
+                                <td>conubia</td>
+                                <td>nostra</td>
+                            </tr>
+                            <tr>
+                                <td>1,014</td>
+                                <td>per</td>
+                                <td>inceptos</td>
+                                <td>himenaeos</td>
+                                <td>Curabitur</td>
+                            </tr>
+                            <tr>
+                                <td>1,015</td>
+                                <td>sodales</td>
+                                <td>ligula</td>
+                                <td>in</td>
+                                <td>libero</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script>
+        window.jQuery || document.write('<script src="bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="../../static/dependencies/Homebootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
+    <script src="../../static/dependencies/Homebootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+        feather.replace()
+    </script>
+
+    <!-- Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.1/dist/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById("graph_ROC_curve");
+        var graph_ROC_curve = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Threshold 1", "Threshold 2", "Threshold 3", "Threshold 4", "Threshold 5"],
+                datasets: [{
+                    label: 'ROC Curve',
+                    data: [
+                        { x: 0.1, y: 0.2 },
+                        { x: 0.3, y: 0.4 },
+                        { x: 0.5, y: 0.6 },
+                        { x: 0.7, y: 0.8 },
+                        { x: 0.9, y: 1.0 }
+                    ],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#007bff',
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'linear',
+                        position: 'bottom',
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'False Positive Rate'
+                        }
+                    }],
+                    yAxes: [{
+                        type: 'linear',
+                        position: 'left',
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'True Positive Rate'
+                        }
+                    }]
+                }
+            }
+        });
+
+
+
+
+        var ctx = document.getElementById("graph_confusion_matrix").getContext('2d');
+        var graph_confusion_matrix = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Classe A", "Classe B", "Classe C", "Classe D"],
+                datasets: [{
+                    label: 'Classe A',
+                    data: [10, 2, 1, 0],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Classe B',
+                    data: [3, 15, 1, 2],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Classe C',
+                    data: [1, 3, 8, 2],
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Classe D',
+                    data: [0, 2, 3, 10],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Predicted'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'True'
+                        }
+                    }]
+                }
+            }
+        });
+
+
+        var ctx = document.getElementById("graph_precision_recall").getContext("2d");
+
+        var graph_precision_recall = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Threshold 0.1", "Threshold 0.3", "Threshold 0.5", "Threshold 0.7", "Threshold 0.9"],
+                datasets: [{
+                    label: 'Precision',
+                    data: [0.85, 0.78, 0.68, 0.56, 0.42],
+                    fill: false,
+                    borderColor: 'blue',
+                    backgroundColor: 'transparent',
+                    pointBorderColor: 'blue',
+                    pointBackgroundColor: 'blue',
+                    pointRadius: 5,
+                    pointHoverRadius: 10,
+                    pointHitRadius: 30,
+                    pointBorderWidth: 2,
+                    pointStyle: 'rectRounded'
+                }, {
+                    label: 'Recall',
+                    data: [0.65, 0.72, 0.78, 0.82, 0.85],
+                    fill: false,
+                    borderColor: 'green',
+                    backgroundColor: 'transparent',
+                    pointBorderColor: 'green',
+                    pointBackgroundColor: 'green',
+                    pointRadius: 5,
+                    pointHoverRadius: 10,
+                    pointHitRadius: 30,
+                    pointBorderWidth: 2,
+                    pointStyle: 'rect'
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Threshold'
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+            }
+        });
+
+
+
+
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Iteração 1", "Iteração 2", "Iteração 3", "Iteração 4", "Iteração 5", "Iteração 6", "Iteração 7"],
+                datasets: [{
+                    label: 'Precisão',
+                    data: [0.8, 0.82, 0.85, 0.87, 0.89, 0.91, 0.92],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#007bff'
+                },
+                {
+                    label: 'Recall',
+                    data: [0.75, 0.78, 0.8, 0.82, 0.84, 0.86, 0.88],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#28a745',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#28a745'
+                },
+                {
+                    label: 'F1-score',
+                    data: [0.77, 0.8, 0.82, 0.84, 0.86, 0.88, 0.89],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#dc3545',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#dc3545'
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+</body>
