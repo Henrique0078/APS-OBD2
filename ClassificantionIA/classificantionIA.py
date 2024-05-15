@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template
-from MachineLearn.machineLearn import train_IA, x_test
+from flask import Blueprint, render_template, request, jsonify
+from MachineLearn.machineLearn import predict_IA, predict, x_test
 
 classificantionIA_blueprint = Blueprint("classificantionIA", __name__, template_folder="templates")
 
@@ -8,7 +8,10 @@ classificantionIA_blueprint = Blueprint("classificantionIA", __name__, template_
 
 @classificantionIA_blueprint.route("/")
 async def classificantionIA():
-    predict = await train_IA()
     return render_template("classificantionIA.html", predict=predict , x_test=x_test)
 
-
+@classificantionIA_blueprint.post("/predict")
+async def predict_data():
+    data = request.json
+    predictions = await predict_IA(data)
+    return jsonify(predictions.tolist())
