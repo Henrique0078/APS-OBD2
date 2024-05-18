@@ -2,11 +2,18 @@ from flask import Flask, url_for
 from Home.home import home_blueprint
 from Dashboard.dashboard import dashboard_blueprint
 from ClassificantionIA.classificantionIA import classificantionIA_blueprint
+from MachineLearn.metrics import metrics_blueprint  
+
+
 main = Flask(__name__, static_url_path='/static')
 
 main.register_blueprint(home_blueprint, url_prefix="/home")
 main.register_blueprint(dashboard_blueprint, url_prefix="/")
 main.register_blueprint(classificantionIA_blueprint, url_prefix="/classificantionIA")
+main.register_blueprint(metrics_blueprint, url_prefix="/metrics")  
+
+
+
 
 
 #@app.after_request
