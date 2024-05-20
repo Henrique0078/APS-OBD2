@@ -21,13 +21,13 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/">
+                            <a class="nav-link" href="/">
                                 <span data-feather="home"></span>
                                 Dashboard <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/classificantionIA">
+                            <a class="nav-link active" href="/classificantionIA">
                                 <span data-feather="file"></span>
                                 Classification IA in real time
                             </a>
@@ -50,27 +50,27 @@
                     </h6>
                     <ul class="nav flex-column mb-2">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/graphsExplanation">
                                 <span data-feather="file-text"></span>
-                                -
+                                Graphs Explanation
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/obdIIDescription">
                                 <span data-feather="file-text"></span>
-                                -
+                                OBD-II Description
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/useOfESP32">
                                 <span data-feather="file-text"></span>
-                                -
+                                Use of ESP32
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/gateawayUseSimulationResults">
                                 <span data-feather="file-text"></span>
-                                -
+                                Gateaway in Use (Simulation/Results)
                             </a>
                         </li>
                     </ul>
@@ -99,7 +99,7 @@
                             <!-- Conteúdo do primeiro elemento -->
                             <div class="card">
                                 <div class="card-body">
-                                    <canvas class="my-4" id="graph_ROC_curve" width="900" height="560"></canvas>
+                                    <div id="graph_ROC_curve" style="width:500px;height:400px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                             <!-- Conteúdo do segundo elemento -->
                             <div class="card">
                                 <div class="card-body">
-                                    <canvas class="my-4" id="graph_confusion_matrix" width="900" height="560"></canvas>
+                                    <div id="graph_confusion_matrix" style="width:500px;height:400px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                             <!-- Conteúdo do terceiro elemento --> 
                             <div class="card">
                                 <div class="card-body">
-                                    <canvas class="my-4" id="graph_precision_recall" width="900" height="560"></canvas>
+                                    <div id="graph_precision_recall" style="width:500px;height:400px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                             <!-- Conteúdo do quarto elemento -->
                             <div class="card">
                                 <div class="card-body"> 
-                                    <canvas class="my-4" id="myChart" width="900" height="560"></canvas>
+                                    <div id="accuracy_chart" style="width:500px;height:400px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -283,127 +283,88 @@
     <!-- Graphs -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.1/dist/Chart.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
         feather.replace()
 
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/metrics')
-                .then(response => response.json())
-                .then(data => {
-                    // Plot ROC Curve
-                    var ctx1 = document.getElementById('graph_ROC_curve').getContext('2d');
-                    new Chart(ctx1, {
-                        type: 'line',
-                        data: {
-                            labels: data.roc_curve.fpr,
-                            datasets: [{
-                                label: 'ROC Curve',
-                                data: data.roc_curve.tpr,
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                xAxes: [{
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: 'False Positive Rate'
-                                    }
-                                }],
-                                yAxes: [{
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: 'True Positive Rate'
-                                    }
-                                }]
-                            }
-                        }
-                    });
+        fetch('/metrics/')
+            .then(response => response.json())
+            .then(data => {
+                // Plot ROC Curve
+                var rocTrace = {
+                    x: data.roc_curve.fpr,
+                    y: data.roc_curve.tpr,
+                    mode: 'lines',
+                    name: 'ROC Curve',
+                    line: { color: 'rgba(75, 192, 192, 1)' }
+                };
 
-                    // Plot Confusion Matrix
-                    var ctx2 = document.getElementById('graph_confusion_matrix').getContext('2d');
-                    new Chart(ctx2, {
-                        type: 'bar',
-                        data: {
-                            labels: ['True Negative', 'False Positive', 'False Negative', 'True Positive'],
-                            datasets: [{
-                                label: 'Confusion Matrix',
-                                data: data.confusion_matrix.flat(),
-                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
-                        }
-                    });
+                var rocLayout = {
+                    title: 'ROC Curve',
+                    xaxis: { title: 'False Positive Rate' },
+                    yaxis: { title: 'True Positive Rate' }
+                };
 
-                    // Plot Precision-Recall Curve
-                    var ctx3 = document.getElementById('graph_precision_recall').getContext('2d');
-                    new Chart(ctx3, {
-                        type: 'line',
-                        data: {
-                            labels: data.precision_recall.recall,
-                            datasets: [{
-                                label: 'Precision-Recall Curve',
-                                data: data.precision_recall.precision,
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                xAxes: [{
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: 'Recall'
-                                    }
-                                }],
-                                yAxes: [{
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: 'Precision'
-                                    }
-                                }]
-                            }
-                        }
-                    });
+                Plotly.newPlot('graph_ROC_curve', [rocTrace], rocLayout);
 
-                    // Plot Accuracy
-                    var ctx4 = document.getElementById('myChart').getContext('2d');
-                    new Chart(ctx4, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Accuracy'],
-                            datasets: [{
-                                label: 'Accuracy',
-                                data: [data.accuracy],
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true,
-                                        max: 1
-                                    }
-                                }]
-                            }
-                        }
-                    });
-                });
-        });
+                // Plot Confusion Matrix
+                var confusionMatrixTrace = {
+                    x: ['True Negative', 'False Positive', 'False Negative', 'True Positive'],
+                    y: data.confusion_matrix.flat(),
+                    type: 'bar',
+                    name: 'Confusion Matrix',
+                    marker: {
+                        color: 'rgba(54, 162, 235, 0.2)',
+                        line: { color: 'rgba(54, 162, 235, 1)', width: 1 }
+                    }
+                };
+
+                var confusionMatrixLayout = {
+                    title: 'Confusion Matrix',
+                    yaxis: { title: 'Count' }
+                };
+
+                Plotly.newPlot('graph_confusion_matrix', [confusionMatrixTrace], confusionMatrixLayout);
+
+                // Plot Precision-Recall Curve
+                var prTrace = {
+                    x: data.precision_recall.recall,
+                    y: data.precision_recall.precision,
+                    mode: 'lines',
+                    name: 'Precision-Recall Curve',
+                    line: { color: 'rgba(255, 99, 132, 1)' }
+                };
+
+                var prLayout = {
+                    title: 'Precision-Recall Curve',
+                    xaxis: { title: 'Recall' },
+                    yaxis: { title: 'Precision' }
+                };
+
+                Plotly.newPlot('graph_precision_recall', [prTrace], prLayout);
+
+                // Plot Accuracy
+                var accuracyTrace = {
+                    x: ['Accuracy'],
+                    y: [data.accuracy],
+                    type: 'bar',
+                    name: 'Accuracy',
+                    marker: {
+                        color: 'rgba(75, 192, 192, 0.2)',
+                        line: { color: 'rgba(75, 192, 192, 1)', width: 1 }
+                    }
+                };
+
+                var accuracyLayout = {
+                    title: 'Accuracy',
+                    yaxis: { range: [0, 1], title: 'Accuracy' }
+                };
+
+                Plotly.newPlot('accuracy_chart', [accuracyTrace], accuracyLayout);
+            });
+
+
+        
     </script>
 
 </body>
