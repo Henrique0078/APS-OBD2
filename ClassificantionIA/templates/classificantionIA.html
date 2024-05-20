@@ -286,11 +286,11 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
         feather.replace()
-
+        
         fetch('/metrics/')
             .then(response => response.json())
             .then(data => {
-                // Plot ROC Curve
+                // Trace da curva ROC
                 var rocTrace = {
                     x: data.roc_curve.fpr,
                     y: data.roc_curve.tpr,
@@ -298,50 +298,68 @@
                     name: 'ROC Curve',
                     line: { color: 'rgba(75, 192, 192, 1)' }
                 };
-
                 var rocLayout = {
                     title: 'ROC Curve',
-                    xaxis: { title: 'False Positive Rate' },
-                    yaxis: { title: 'True Positive Rate' }
-                };
-
-                Plotly.newPlot('graph_ROC_curve', [rocTrace], rocLayout);
-
-                // Plot Confusion Matrix
-                var confusionMatrixTrace = {
-                    x: ['True Negative', 'False Positive', 'False Negative', 'True Positive'],
-                    y: data.confusion_matrix.flat(),
-                    type: 'bar',
-                    name: 'Confusion Matrix',
-                    marker: {
-                        color: 'rgba(54, 162, 235, 0.2)',
-                        line: { color: 'rgba(54, 162, 235, 1)', width: 1 }
+                    xaxis: { 
+                        title: 'False Positive Rate',
+                        range: [0, 1], // Definindo o intervalo do eixo x
+                        constrain: 'domain' // Restringindo o eixo x ao domínio
+                    },
+                    yaxis: { 
+                        title: 'True Positive Rate',
+                        scaleanchor: "x", // Mantendo a proporção dos eixos
+                        scaleratio: 1 // Mantendo a proporção dos eixos
                     }
                 };
+                Plotly.newPlot('graph_ROC_curve', [rocTrace], rocLayout);
 
+                // Trace da matriz de confusão como heatmap
+                var confusionMatrixTrace = {
+                    z: data.confusion_matrix,
+                    x: ['Negative', 'Positive'],
+                    y: ['Actual Negative', 'Actual Positive'],
+                    type: 'heatmap',
+                    colorscale: 'Blues',
+                    text: data.confusion_matrix.flat(),
+                    texttemplate: "%{text}",
+                    hoverongaps: false
+                };
                 var confusionMatrixLayout = {
                     title: 'Confusion Matrix',
-                    yaxis: { title: 'Count' }
+                    xaxis: {
+                        title: 'Predicted Label'
+                    },
+                    yaxis: {
+                        title: 'True Label'
+                    }
                 };
-
                 Plotly.newPlot('graph_confusion_matrix', [confusionMatrixTrace], confusionMatrixLayout);
 
-                // Plot Precision-Recall Curve
+                // Trace da curva Precision-Recall
                 var prTrace = {
                     x: data.precision_recall.recall,
                     y: data.precision_recall.precision,
                     mode: 'lines',
                     name: 'Precision-Recall Curve',
-                    line: { color: 'rgba(255, 99, 132, 1)' }
+                    line: { color: 'rgba(255, 99, 132, 1)' },
+                    fill: 'tozeroy'
                 };
-
+                var referenceLine = {
+                    x: [0, 1],
+                    y: [1, 0],
+                    mode: 'lines',
+                    line: {
+                        dash: 'dash',
+                        color: 'black'
+                    },
+                    showlegend: false
+                };
                 var prLayout = {
                     title: 'Precision-Recall Curve',
                     xaxis: { title: 'Recall' },
                     yaxis: { title: 'Precision' }
                 };
-
-                Plotly.newPlot('graph_precision_recall', [prTrace], prLayout);
+                Plotly.newPlot('graph_precision_recall', [prTrace, referenceLine], prLayout);
 
                 // Plot Accuracy
                 var accuracyTrace = {
@@ -354,17 +372,12 @@
                         line: { color: 'rgba(75, 192, 192, 1)', width: 1 }
                     }
                 };
-
                 var accuracyLayout = {
                     title: 'Accuracy',
                     yaxis: { range: [0, 1], title: 'Accuracy' }
                 };
-
                 Plotly.newPlot('accuracy_chart', [accuracyTrace], accuracyLayout);
             });
-
-
-        
     </script>
 
 </body>

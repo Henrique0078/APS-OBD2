@@ -18,7 +18,6 @@ svm_model.fit(x_train, y_train)
 # Fazendo previsões e calculando probabilidades
 predict = svm_model.predict(x_test)
 predict_proba = svm_model.predict_proba(x_test)[:, 1]
-print(accuracy_score(y_test, predict))
 
 # Calcular métricas
 accuracy = accuracy_score(y_test, predict)
@@ -48,6 +47,10 @@ with open(metrics_path, 'w') as f:
 
 print(f"Accuracy: {accuracy}")
 
+# Definindo a função predict_IA
 async def predict_IA(dados):
     result = svm_model.predict(dados)
     return result.tolist()
+
+# Certificando-se de exportar as funções necessárias
+__all__ = ['predict_IA', 'predict', 'x_test']
